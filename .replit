@@ -1,0 +1,2 @@
+# For running on repl.it
+run = "clang++ -pthread -std=c++17 -o davm main.cpp -lncurses -g; ./davm; rm davm"

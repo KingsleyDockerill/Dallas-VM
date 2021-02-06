@@ -1,0 +1,3 @@
+STR R0 "Hello, world!\n"
+REV #1
+RET 0
