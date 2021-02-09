@@ -31,3 +31,5 @@ RET 0 exits.
 |  SET | SET location value | Sets the location as value |
 |  Math mnemonics | (mnemonic) register value value | Performs operation on value and value and puts it in register. This includes ADD, SUB, MUL, DIV, POW, AND, OR, XOR, and NOT. |
 |  NOT | NOT register value | Performs not operation on value and stores in register |
+|  CMP | CMP value value value expression | Compares the first to values. The third value is 1-6, representing each logical expression |
+|  CALL | CALL name | Calls the branch name |
