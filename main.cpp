@@ -845,6 +845,31 @@ void interpret_line(std::string line) {
             interpret_line(execute);
           }
           break;
+        case 2 :
+          if(val_1 != val_2) {
+            interpret_line(execute);
+          }
+          break;
+        case 3 :
+          if(val_1 < val_2) {
+            interpret_line(execute);
+          }
+          break;
+        case 4 :
+          if(val_1 > val_2) {
+            interpret_line(execute);
+          }
+          break;
+        case 5 :
+          if(val_1 <= val_2) {
+            interpret_line(execute);
+          }
+          break;
+        case 6 :
+          if(val_1 >= val_2) {
+            interpret_line(execute);
+          }
+          break;
       }
     }
     else if(keyword == "CALL") {
