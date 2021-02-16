@@ -9,6 +9,7 @@
 #include <vector>
 // C includes
 #include <ncurses.h>
+#include <unistd.h>
 
 enum {
   R0,
@@ -171,6 +172,7 @@ void interpret_line(std::string line) {
           std::string str = getstr();
           int pos;
           for(pos = 0; memory[pos]; pos++);
+          registers[R0] = pos;
           for(auto a: str) {
             memory[pos] = a;
             pos++;
@@ -181,6 +183,51 @@ void interpret_line(std::string line) {
         case 6 :
           clear();
           break;
+        case 7 : {
+          std::puts("WARNING: Importing is a work in progress. You may get unexpected behavior.");
+          int loc;
+          std::string filename, line;
+          for(loc = registers[R0]; memory[loc] != '\0'; loc++) {
+            filename += memory[loc];
+          }
+          std::stringstream filestream(read(std::fopen(filename.c_str(), "r")));
+          while(std::getline(filestream, line, '\n')) {
+            interpret_line(line);
+          }
+          break;
+        }
+        case 8 : {
+          int loc;
+          std::string filename, str;
+          for(loc = registers[R0]; memory[loc] != '\0'; loc++) {
+            filename += memory[loc];
+          }
+          str = read(fopen(filename.c_str(), "r"));
+          int pos;
+          for(pos = 0; memory[pos]; pos++);
+          registers[R0] = pos;
+          for(auto a: str) {
+            memory[pos] = a;
+            pos++;
+          }
+          memory[++pos] = '\0';
+          break;
+        }
+        case 9 : {
+          int loc;
+          std::string filename, contents;
+          for(loc = registers[R0]; memory[loc] != '\0'; loc++) {
+            filename += memory[loc];
+          }
+          for(loc = registers[R1]; memory[loc] != '\0'; loc++) {
+            contents += memory[loc];
+          }
+          FILE* file = fopen(filename.c_str(), "w");
+          for(auto a: contents) {
+            std::fputc(a, file);
+          }
+          break;
+        }
       }
     }
     else if(keyword == "RET") {
